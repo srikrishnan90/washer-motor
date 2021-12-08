@@ -77,7 +77,7 @@ void loop()
   else if (te.substring(0, 3) == "prm")
   {
     prime();
-    plate_home();
+    //plate_home();
     delay(100);
     de = "done";
     te = "";
@@ -108,7 +108,6 @@ void loop()
   }
   else if (te.substring(0, 3) == "shk")
   {
-    de = "done";
     manifold_home();
     plate_home();
     shake(spd, dur);
@@ -123,11 +122,13 @@ void loop()
 void rinse()
 {
   analogWrite(waste, 0);
-  delay(4000);
+  delay(2000);
   move_manifold_bottom_prime();
   analogWrite(rins, 200);
-  delay(5000);
+  analogWrite(waste, 80);
+  delay(4000);
   analogWrite(rins, 255);
+  analogWrite(waste, 150);
   delay(2000);
   analogWrite(waste, 255);
   move_manifold_up(7500);
@@ -136,11 +137,13 @@ void rinse()
 void prime()
 {
   analogWrite(waste, 0);
-  delay(4000);
+  delay(2000);
   move_manifold_bottom_prime();
   analogWrite(wash, 220);
-  delay(5000);
+  analogWrite(waste, 80);
+  delay(3000);
   analogWrite(wash, 255);
+  analogWrite(waste, 150);
   delay(2000);
   analogWrite(waste, 255);
   move_manifold_up(7500);
@@ -489,7 +492,7 @@ void requestEvent()
   char buf[30];
   de.toCharArray(buf, 30);
   Wire.write(buf, 30); //Write String to Pi.
-  delay(100);
+  //delay(100);
 }
 
 void receiveEvent(int numBytes)
