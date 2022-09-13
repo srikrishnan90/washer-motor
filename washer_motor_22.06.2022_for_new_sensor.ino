@@ -37,6 +37,8 @@ int dur = 0; //shake speed
 int wellbottom = 0;
 int vpump = 0;
 
+int k=0;
+
 struct myobject {
   int val1;
 };
@@ -74,6 +76,12 @@ void loop()
 {
   Wire.begin(0x07);
   delay(50);
+  k++;
+  if(k==20)
+  {
+    //Serial.println("running");
+    k=0;
+  }
   if (te.substring(0, 3) == "ini")
   {
     manifold_home();
@@ -179,8 +187,8 @@ void set_motor_val()
 void rinse(int spd, int dur)
 {
   manifold_home();
-  Serial.println(spd);
-  Serial.println(dur);
+  //Serial.println(spd);
+  //Serial.println(dur);
   analogWrite(waste, 255);
   delay(500);
   move_manifold_bottom_prime();
@@ -551,7 +559,7 @@ void init_position_finalasp()
 
 void wash_plate(int movpos, int vol, int cross, int spd)
 {
-  Serial.println(vol);
+  //Serial.println(movpos);
   analogWrite(waste, 255);
   if (pinit_status == 1)
   {
@@ -583,7 +591,7 @@ void wash_plate(int movpos, int vol, int cross, int spd)
 
 void wash_plate_finalasp(int movpos, int vol, int cross)
 {
-  Serial.println(movpos);
+  //Serial.println(movpos);
   analogWrite(waste, 255);
   if (pinit_status == 1)
   {
@@ -696,7 +704,7 @@ void receiveEvent(int numBytes)
   }
   de = rc;
   te = de;
-  Serial.println(de);
+  //Serial.println(de);
   if (te.substring(0, 3) == "mov" || te.substring(0, 3) == "mof")
   {
     char buf[30];
